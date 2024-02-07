@@ -27,6 +27,7 @@ class Scraper:
         response = await self.get_response(client)
         proxies = await self.handle(response)
         pattern = re.compile(r"\d{1,3}(?:\.\d{1,3}){3}(?::\d{1,5})?")
+        print("Done.")
         return re.findall(pattern, proxies)
 
 
@@ -38,9 +39,7 @@ class SpysMeScraper(Scraper):
         mode = (
             "proxy"
             if self.method == "http"
-            else "socks"
-            if self.method == "socks"
-            else "unknown"
+            else "socks" if self.method == "socks" else "unknown"
         )
 
         if mode == "unknown":
